@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>공지사항</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<style>
+		tr:hover td{
+			background-color: rgba(195, 195, 195, 0.573);
+		}
+
+		#btn-area{
+			text-align: right;
+			margin-right: 15px;
+		}
+	</style>
+	<body>
+		<h1>공지사항 목록</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% notices.forEach(function(notice) { %>
+				<tr class="notice" id="<%=notice._id%>">
+					<td><%= notice.TITLE %></td>
+					<td><%= notice.CONTENT %></td>
+					<td><%= notice.USER %></td>
+					<td><%= notice.CREATED_AT %></td>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+		<div id="btn-area">
+			<button id="insertBtn" class="btn btn-primary">추가</button>
+		</div>
+		
+		<script src="/js/list.js"></script>
+	</body>
+</html>
