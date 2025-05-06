@@ -42,12 +42,12 @@ const Notice = mongoose.model('Notice', noticeSchema, 'NOTICE');
 
 // CRUD url
 
-// [C] 입력 폼 띄우기
+// [C] 입력 폼 띄우기 - '/write' get mapping
 app.get('/write', function(req, res){
   res.render('write');
 });
 
-// [C] 저장
+// [C] 저장 - '/write' post mapping
 app.post('/write', async function(req, res){
   try {
     const { title, content } = req.body;
@@ -67,7 +67,7 @@ app.post('/write', async function(req, res){
   }
 });
 
-// [R] 전체 리스트 가지고 오기
+// [R] 전체 리스트 가지고 오기 - '/' get mapping
 app.get('/', async function(req, res){
   try {
     const notices = await Notice.find().sort({ createdAt: -1 }); // 최신순
@@ -77,7 +77,7 @@ app.get('/', async function(req, res){
   }
 });
 
-// [R] 상세 페이지 조회하기
+// [R] 상세 페이지 조회하기 - '/detail/{id}' get mapping
 app.get('/detail/:id', async function(req, res){
   try {
     const id = req.params.id;
@@ -95,7 +95,7 @@ app.get('/detail/:id', async function(req, res){
   }
 });
 
-// [U] 수정 폼 띄우기
+// [U] 수정 폼 띄우기 - '/update/{id}' get mapping
 app.get('/update/:id', async function(req, res){
   const id = req.params.id;
   const detailNotice = await Notice.findOne({ _id: id });
@@ -107,7 +107,7 @@ app.get('/update/:id', async function(req, res){
   res.render('update', { detailNotice });
 })
 
-// [U] 수정
+// [U] 수정 - '/update/{id}' post mapping
 app.post('/update/:id', async function(req, res){
   const id = req.params.id;
   const { title, content } = req.body;
@@ -136,7 +136,7 @@ app.post('/update/:id', async function(req, res){
   }
 })
 
-// [D] 삭제
+// [D] 삭제 - '/delete/{id}' get mapping
 app.get('/delete/:id', async function(req, res){
   const id = req.params.id;
   try {
@@ -150,11 +150,11 @@ app.get('/delete/:id', async function(req, res){
 
 
 
-// 고정 폴더인 public 등록(js 파일들 저장할 거임)
+// 고정 폴더인 public 등록(js 파일들 저장할 거임 하고 알려주는 거)
 app.use(express.static('public'));
 
 // 서버 시작
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+  console.log('서버 연결 완료~! http://localhost:3000');
 });
 
